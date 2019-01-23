@@ -8,23 +8,26 @@ class App extends Component {
       latitude: null,
       longitude: null
     };
-  }
 
-  getGeolocation() {
     window.navigator.geolocation.getCurrentPosition(
-      (position) => console.log(position),  // Callback function to log position
+      (position) => { // Callback function to log position
+        this.setState({
+          latitude: position.coords.latitude, 
+          longitude: position.coords.longitude
+        })
+      },
       (err) => console.log(err)
     );
   }
 
   render() {
-    window.navigator.geolocation.getCurrentPosition(
-      (position) => console.log(position),  // Callback function to log position
-      (err) => console.log(err)
-    );
+    const { latitude, longitude} = this.state;
 
     return (
-      <div>Latitude: </div>
+      <div>
+        <div>Latitude: {latitude}</div>
+        <div>Longitude: {longitude}</div>
+      </div>
     );
   }
 }
