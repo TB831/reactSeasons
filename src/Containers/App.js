@@ -35,10 +35,7 @@ class App extends Component {
       errorMessage ? 
         <div>Error: {errorMessage}</div> 
       :
-        <div>
-          <div>Longitude: {longitude}</div>
-          <div>Latitude: {latitude}</div>
-        </div>
+        <SeasonDisplay latitude={latitude} longitude={longitude} />
     );
   }
 }
