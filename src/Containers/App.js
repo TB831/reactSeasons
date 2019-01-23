@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SeasonDisplay from '../Components/SeasonDisplay';
 import './App.css';
 
 class App extends Component {
@@ -6,9 +7,12 @@ class App extends Component {
     super();
     this.state = {
       latitude: null,
-      longitude: null
+      longitude: null,
+      errorMessage: null
     };
+  }
 
+  componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       (position) => { // Callback function to log position
         this.setState({
@@ -16,18 +20,25 @@ class App extends Component {
           longitude: position.coords.longitude
         })
       },
-      (err) => console.log(err)
+      (err) => {   // Error callback function
+        this.setState({
+          errorMessage: err.message
+        })
+      }
     );
   }
 
   render() {
-    const { latitude, longitude} = this.state;
+    const { latitude, longitude, errorMessage} = this.state;
 
     return (
-      <div>
-        <div>Latitude: {latitude}</div>
-        <div>Longitude: {longitude}</div>
-      </div>
+      errorMessage ? 
+        <div>Error: {errorMessage}</div> 
+      :
+        <div>
+          <div>Longitude: {longitude}</div>
+          <div>Latitude: {latitude}</div>
+        </div>
     );
   }
 }
