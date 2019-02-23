@@ -1,17 +1,14 @@
 import React from 'react';
 
-const SeasonDisplay = (props) => {
-    const season = getSeason(props.latitude, new Date().getMonth());
-    const displayText = season === 'winter' ? 'Burr, it is chilly' : 'Lets hit the beach'
-    const iconImage = season === 'winter' ? 'snowflake' : 'sun';
-
-    return (
-        <div>
-            <i className={`${iconImage} icon`} />
-            <h1>{displayText}</h1>
-            <i className={`${iconImage} icon`} />
-        </div>
-    )
+const seasonConfig = {
+    summer: {
+        text: 'Lets hit the beach!',
+        iconName: 'sun',
+    },
+    winter: {
+        text: 'Burr it is cold!',
+        iconName: 'snowflake',
+    }
 }
 
 const getSeason = (latitude, month) => {    // Helper function to determine winter/summer depending on lat location
@@ -20,6 +17,21 @@ const getSeason = (latitude, month) => {    // Helper function to determine wint
     } else {
         return latitude > 0 ? 'winter' : 'summer'
     }
+}
+
+
+const SeasonDisplay = (props) => {
+    const season = getSeason(props.latitude, new Date().getMonth());
+    console.log(season);
+    const { text, iconName } = seasonConfig[season];
+
+    return (
+        <div>
+            <i className={`${iconName} icon`} />
+            <h1>{text}</h1>
+            <i className={`${iconName} icon`} />
+        </div>
+    )
 }
 
 export default SeasonDisplay;
