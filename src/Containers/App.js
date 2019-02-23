@@ -29,7 +29,7 @@ class App extends Component {
     );
   }
 
-  render() {
+  renderContent() { // For conditional rendering, place into method
     const { latitude, longitude, errorMessage} = this.state;
     const message = "Please accept location request";
 
@@ -42,6 +42,14 @@ class App extends Component {
     }
 
     return <Spinner message={message} />;
+  }
+
+  render() {
+    return (
+      <div className="border red">
+        {this.renderContent()}
+      </div>
+    )
   }
 }
 
