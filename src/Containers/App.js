@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SeasonDisplay from '../Components/SeasonDisplay';
+import Spinner from '../Components/Spinner';
 import './App.css';
 
 class App extends Component {
@@ -30,13 +31,17 @@ class App extends Component {
 
   render() {
     const { latitude, longitude, errorMessage} = this.state;
+    const message = "Please accept location request";
 
-    return (
-      errorMessage ? 
-        <div>Error: {errorMessage}</div> 
-      :
-        <SeasonDisplay latitude={latitude} longitude={longitude} />
-    );
+    if (errorMessage && !latitude) {
+      return <div>Error: {errorMessage}</div>;
+    }
+
+    if (!errorMessage && latitude) {
+      return <SeasonDisplay latitude={latitude} longitude={longitude} />;
+    }
+
+    return <Spinner message={message} />;
   }
 }
 

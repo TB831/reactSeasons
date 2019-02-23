@@ -23,7 +23,6 @@ const getSeason = (latitude, month) => {    // Helper function to determine wint
 
 const SeasonDisplay = (props) => {
     const season = getSeason(props.latitude, new Date().getMonth());
-    console.log(season);
     const { text, iconName } = seasonConfig[season];
 
     return (
